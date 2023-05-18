@@ -49,7 +49,7 @@ class BobConstrutorApp(tk.Tk):
             {"nome": "Lixa", "imagem": "lixa.png"},
             {"nome": "Chave de Teste", "imagem": "chave_teste.png"},
             {"nome": "Chave de Boca", "imagem": "chave_boca.png"},
-            {"nome": "Chave Inglesa", "imagem": "chave.png"}
+            {"nome": "Chave Inglesa", "imagem": "chave_inglesa.png"}
         ]
 
         self.selected_tool = None
