@@ -25,8 +25,7 @@ def knapsack_problem(caixa_ferramentas, capacidade):
 
     return ferramentas_selecionadas
 
-# Exemplo de uso
-# Cada ferramenta é uma tupla contendo (valor, peso)
+# Exemplo de uso, cada ferramenta é uma tupla (lista) contendo (valor, peso)
 caixa_ferramentas = [
     (10, 2),  # Ferramenta 1: valor = 10, peso = 2
     (5, 3),   # Ferramenta 2: valor = 5, peso = 3
