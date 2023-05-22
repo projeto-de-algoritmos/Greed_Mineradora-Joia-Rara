@@ -1,4 +1,4 @@
-# Bob O Construtor
+# Mineradora Joia Rara
 
 **Conteúdo da Disciplina**: Algoritmos Ambiciosos <br>
 
