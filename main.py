@@ -112,7 +112,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
                 print(f"Peso: {self.selected_tool['peso']}")
                 print("Minerios selecionados:", self.minerios_selecionados)
             else:
-                print("Peso inválido. Insira um valor numérico inteiro.")
+                messagebox.showinfo(" ", "Peso inválido. Insira um valor numérico inteiro.")
         else:
              messagebox.showinfo(" ", "Nenhum minerio cadastratado!")
 
