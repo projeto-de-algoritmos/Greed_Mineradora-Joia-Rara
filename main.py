@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from PIL import Image
+from tkinter import messagebox
+
 
 def knapsack_problem(caminhao, capacidade):
     n = len(caminhao)
@@ -113,7 +114,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
             else:
                 print("Peso inválido. Insira um valor numérico inteiro.")
         else:
-            print("Nenhum minerio selecionado.")
+             messagebox.showinfo(" ", "Nenhum minerio cadastratado!")
 
     def calculate_knapsack(self):
         capacidade_caminhao = 500  # Capacidade do caminhao
