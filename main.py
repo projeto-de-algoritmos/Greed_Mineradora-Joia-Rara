@@ -34,14 +34,14 @@ class MineradoraJoiaRaraApp(tk.Tk):
         super().__init__()
 
         self.title("Mineradora Joia Rara")
-        self.geometry("400x400")
+        self.geometry("800x800")
 
         self.minerios = [
-            {"nome": "Ouro", "imagem": "ouro.png"},
-            {"nome": "Prata", "imagem": "prata.png"},
-            {"nome": "Cobre", "imagem": "cobre.png"},
-            {"nome": "Ferro", "imagem": "ferro.png"},
-            {"nome": "Chumbo", "imagem": "chumbo.png"},
+            {"nome": "Ouro"},
+            {"nome": "Prata"},
+            {"nome": "Cobre"},
+            {"nome": "Ferro"},
+            {"nome": "Chumbo"   },
         ]
 
         self.selected_tool = None
@@ -95,10 +95,10 @@ class MineradoraJoiaRaraApp(tk.Tk):
 
     def select_tool(self, minerio):
         self.selected_tool = minerio
-        img_path = minerio["imagem"]
-        tool_image = Image.open(img_path)
-        self.lbl_selected_tool_image.config(image=tool_image)
-        self.lbl_selected_tool_image.image = tool_image
+        #img_path = minerio["imagem"]
+        #tool_image = Image.open(img_path)
+        #self.lbl_selected_tool_image.config(image=tool_image)
+        #self.lbl_selected_tool_image.image = tool_image
 
     def add_tool(self):
         if self.selected_tool is not None:
