@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk, Listbox
 from tkinter import messagebox
 from PIL import Image, ImageTk
+import create_greed 
 
 class WelcomeScreen(tk.Tk):
     def __init__(self):
@@ -160,15 +161,16 @@ class MineradoraJoiaRaraApp(tk.Tk):
             messagebox.showerror("Erro", "O valor do minério deve estar entre 1 e 100.")
             return
 
-        tool_info = {
+        self.tool_info = {
             "nome": self.selected_tool["nome"],
             "image_path": self.selected_tool["image_path"],
             "peso": peso,
             "valor": valor
         }
 
-        self.minerios_selecionados.append(tool_info)
-        self.listbox_selected_tools.insert(tk.END, f"{tool_info['nome']} - Peso: {peso} - Valor: {valor}")
+
+        self.minerios_selecionados.append(self.tool_info)
+        self.listbox_selected_tools.insert(tk.END, f"{self.tool_info['nome']} - Peso: {peso} - Valor: {valor}")
 
         self.clear_inputs()
 
@@ -190,64 +192,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
             messagebox.showerror("Erro", "Selecione pelo menos um minério antes de calcular.")
             return
 
-        W = 100  # Peso máximo suportado pela mochila
-
-        minerios = self.minerios_selecionados
-        print(type(minerios))
-
-        # Ordena os minérios pelo valor/peso em ordem decrescente
-        #minerios.sort(key=key_fn, reverse=True)
-
-        # Função para calcular a divisão do valor pelo peso dos minérios
-        # def key_fn(item):
-        #     return item["divisao"]
-
-
-        n = len(minerios)
-        peso_total = 0
-        valor_total = 0
-
-        for i in range(n):
-            if peso_total + minerios[i]["peso"] <= W:
-                peso_total += minerios[i]["peso"]
-                valor_total += minerios[i]["valor"]
-
-        def knapsack_01(capacity, minerios):
-            n = len(weights)
-            dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
-            
-            weights = minerios['peso']
-            values = minerios['valor']
-
-            for i in range(1, n + 1):
-                for w in range(1, capacity + 1):
-                    if weights[i - 1] <= w:
-                        dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
-                    else:
-                        dp[i][w] = dp[i - 1][w]
-            
-            selected_items = []
-            i, w = n, capacity
-            while i > 0 and w > 0:
-                if dp[i][w] != dp[i - 1][w]:
-                    selected_items.append(i)
-                    w -= weights[i - 1]
-                i -= 1
-            
-            return dp[n][capacity], selected_items[::-1]
-
-        # Exemplo citado
-        weights = [6, 3, 2, 7]
-        values = [10, 8, 6, 12]
-        capacity = 500
-
-        max_value, selected_items = knapsack_01(capacity, minerios)
-        print("Valor máximo:", max_value)
-        print("Objetos selecionados:", selected_items)
-        
-        messagebox.showinfo("Resultado", f"Minérios selecionados: {', '.join([minerio['nome'] for minerio in minerios[:n]])}\n"
-                                         f"Peso total: {peso_total}\n"
-                                         f"Valor total: {valor_total}")
+        messagebox.showinfo("Resultado", create_greed.knapsack_problem(self.tool_info,500) )
     def run(self):
         self.mainloop()
 
