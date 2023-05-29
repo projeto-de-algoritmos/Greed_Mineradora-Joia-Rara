@@ -1,6 +1,6 @@
 import os
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, Listbox
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
@@ -73,7 +73,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
 
         self.selected_tool = None
         self.previous_tool = None
-        self.peso_tool = 0
         self.minerios_selecionados = []
 
         self.create_widgets()
@@ -136,6 +135,10 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.btn_calculate = ttk.Button(self.frame_buttons, text="Calcular", command=self.calculate_knapsack)
         self.btn_calculate.pack(pady=10)
 
+        # Adicione as seguintes linhas para criar o botão novamente
+        self.btn_clear = ttk.Button(self.frame_buttons, text="Limpar seleção", command=self.clear_tool_selections)
+        self.btn_clear.pack(pady=10)
+
     def select_tool(self, minerio):
         self.previous_tool = self.selected_tool
         self.selected_tool = minerio
@@ -164,15 +167,22 @@ class MineradoraJoiaRaraApp(tk.Tk):
             "nome": self.selected_tool["nome"],
             "image_path": self.selected_tool["image_path"],
             "peso": peso,
-            "valor": valor
+            "valor": valor,
+            "divisao": valor / peso  # Adiciona a chave "divisao" ao dicionário do minério
         }
 
         self.minerios_selecionados.append(tool_info)
         self.listbox_selected_tools.insert(tk.END, f"{tool_info['nome']} - Peso: {peso} - Valor: {valor}")
 
-        self.clear_tool_selection()
+        self.clear_inputs()
 
-    def clear_tool_selection(self):
+    def clear_tool_selections(self):
+        for tool in self.tools:
+            tool.configure(state="enabled")
+        self.listbox_selected_tools.delete(0, tk.END)
+        self.update_tool_buttons()
+
+    def clear_inputs(self):
         self.selected_tool = None
         self.previous_tool = None
         self.entry_peso_tool.delete(0, tk.END)
@@ -180,41 +190,36 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.update_tool_buttons()
 
     def calculate_knapsack(self):
-        if len(self.minerios_selecionados) == 0:
-            messagebox.showerror("Erro", "Selecione pelo menos um minério.")
+        if not self.minerios_selecionados:
+            messagebox.showerror("Erro", "Selecione pelo menos um minério antes de calcular.")
             return
 
-        peso_max = 500
+        W = 100  # Peso máximo suportado pela mochila
 
-        items = []
-        for minerio in self.minerios_selecionados:
-            peso_minerio = minerio["peso"]
-            valor_minerio = minerio["valor"]
-            taxa = peso_minerio / valor_minerio
-            items.append((minerio, taxa))
+        minerios = self.minerios_selecionados
 
-        items.sort(key=lambda x: x[1], reverse=True)
+        # Função para calcular a divisão do valor pelo peso dos minérios
+        def key_fn(item):
+            return item["divisao"]
 
+        # Ordena os minérios pelo valor/peso em ordem decrescente
+        minerios.sort(key=key_fn, reverse=True)
+
+        n = len(minerios)
         peso_total = 0
         valor_total = 0
-        minerais_selecionados = []
 
-        for item in items:
-            minerio = item[0]
-            peso_minerio = minerio["peso"]
-            valor_minerio = minerio["valor"]
+        for i in range(n):
+            if peso_total + minerios[i]["peso"] <= W:
+                peso_total += minerios[i]["peso"]
+                valor_total += minerios[i]["valor"]
 
-            if peso_total + peso_minerio <= peso_max:
-                peso_total += peso_minerio
-                valor_total += valor_minerio
-                minerais_selecionados.append(minerio)
+        messagebox.showinfo("Resultado", f"Minérios selecionados: {', '.join([minerio['nome'] for minerio in minerios[:n]])}\n"
+                                         f"Peso total: {peso_total}\n"
+                                         f"Valor total: {valor_total}")
 
-        messagebox.showinfo("Resultado", f"Valor máximo possível: {valor_total}")
-
-        for minerio in minerais_selecionados:
-            print(minerio["nome"])
-
-        self.clear_tool_selection()
+    def run(self):
+        self.mainloop()
 
 
 if __name__ == "__main__":
