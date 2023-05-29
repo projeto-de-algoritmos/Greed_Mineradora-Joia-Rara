@@ -4,7 +4,6 @@ from tkinter import ttk, Listbox
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
-
 class WelcomeScreen(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -54,7 +53,6 @@ class WelcomeScreen(tk.Tk):
                 self.lbl_background = ttk.Label(self, image=bg_image)
                 self.lbl_background.image = bg_image
                 self.lbl_background.place(x=0, y=0, relwidth=1, relheight=1)
-
 
 class MineradoraJoiaRaraApp(tk.Tk):
     def __init__(self):
@@ -135,7 +133,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.btn_calculate = ttk.Button(self.frame_buttons, text="Calcular", command=self.calculate_knapsack)
         self.btn_calculate.pack(pady=10)
 
-        # Adicione as seguintes linhas para criar o botão novamente
         self.btn_clear = ttk.Button(self.frame_buttons, text="Limpar seleção", command=self.clear_tool_selections)
         self.btn_clear.pack(pady=10)
 
@@ -220,7 +217,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
 
     def run(self):
         self.mainloop()
-
 
 if __name__ == "__main__":
     app = WelcomeScreen()
