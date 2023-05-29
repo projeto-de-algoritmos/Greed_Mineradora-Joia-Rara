@@ -164,8 +164,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
             "nome": self.selected_tool["nome"],
             "image_path": self.selected_tool["image_path"],
             "peso": peso,
-            "valor": valor,
-            "divisao": valor / peso  # Adiciona a chave "divisao" ao dicionário do minério
+            "valor": valor
         }
 
         self.minerios_selecionados.append(tool_info)
@@ -194,13 +193,15 @@ class MineradoraJoiaRaraApp(tk.Tk):
         W = 100  # Peso máximo suportado pela mochila
 
         minerios = self.minerios_selecionados
-
-        # Função para calcular a divisão do valor pelo peso dos minérios
-        def key_fn(item):
-            return item["divisao"]
+        print(type(minerios))
 
         # Ordena os minérios pelo valor/peso em ordem decrescente
-        minerios.sort(key=key_fn, reverse=True)
+        #minerios.sort(key=key_fn, reverse=True)
+
+        # Função para calcular a divisão do valor pelo peso dos minérios
+        # def key_fn(item):
+        #     return item["divisao"]
+
 
         n = len(minerios)
         peso_total = 0
@@ -211,10 +212,42 @@ class MineradoraJoiaRaraApp(tk.Tk):
                 peso_total += minerios[i]["peso"]
                 valor_total += minerios[i]["valor"]
 
+        def knapsack_01(capacity, minerios):
+            n = len(weights)
+            dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
+            
+            weights = minerios['peso']
+            values = minerios['valor']
+
+            for i in range(1, n + 1):
+                for w in range(1, capacity + 1):
+                    if weights[i - 1] <= w:
+                        dp[i][w] = max(values[i - 1] + dp[i - 1][w - weights[i - 1]], dp[i - 1][w])
+                    else:
+                        dp[i][w] = dp[i - 1][w]
+            
+            selected_items = []
+            i, w = n, capacity
+            while i > 0 and w > 0:
+                if dp[i][w] != dp[i - 1][w]:
+                    selected_items.append(i)
+                    w -= weights[i - 1]
+                i -= 1
+            
+            return dp[n][capacity], selected_items[::-1]
+
+        # Exemplo citado
+        weights = [6, 3, 2, 7]
+        values = [10, 8, 6, 12]
+        capacity = 500
+
+        max_value, selected_items = knapsack_01(capacity, minerios)
+        print("Valor máximo:", max_value)
+        print("Objetos selecionados:", selected_items)
+        
         messagebox.showinfo("Resultado", f"Minérios selecionados: {', '.join([minerio['nome'] for minerio in minerios[:n]])}\n"
                                          f"Peso total: {peso_total}\n"
                                          f"Valor total: {valor_total}")
-
     def run(self):
         self.mainloop()
 
