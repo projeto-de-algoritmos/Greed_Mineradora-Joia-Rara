@@ -6,10 +6,8 @@ def knapsack_01(capacity, mineral):
         if key == 'peso':
             weights.append(value)
         elif key == 'valor':
-            values.append('valor')
-
-#ahhh
-
+            values.append(value)
+            
     n = len(weights)
     dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
     
@@ -29,5 +27,3 @@ def knapsack_01(capacity, mineral):
         i -= 1
     
     return dp[n][capacity], selected_items[::-1]
-
-
