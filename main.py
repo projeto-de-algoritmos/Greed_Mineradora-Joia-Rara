@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import ttk, Listbox
 from tkinter import messagebox
 from PIL import Image, ImageTk
-import create_greed 
+import create_greed
 
 class WelcomeScreen(tk.Tk):
     def __init__(self):
@@ -107,8 +107,8 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.frame_selected_tool = ttk.Frame(self.frame_content)
         self.frame_selected_tool.pack(pady=10)
 
-        self.lbl_peso_tool = ttk.Label(self.frame_selected_tool, text="Capacidade do caminhão:")
-        self.lbl_peso_tool.grid(row=0, column=0, padx=5, pady=5, sticky="e")
+        #self.lbl_peso_tool = ttk.Label(self.frame_selected_tool, text="Capacidade do caminhão:")
+        #self.lbl_peso_tool.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
         self.entry_peso_tool = ttk.Entry(self.frame_selected_tool)
         self.entry_peso_tool.grid(row=0, column=1, padx=5, pady=5)
@@ -132,11 +132,12 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.lbl_selected_tools = ttk.Label(self.frame_content, text="Minérios selecionados:")
         self.lbl_selected_tools.pack()
 
-        self.listbox_selected_tools = tk.Listbox(self.frame_content)
+        self.listbox_selected_tools = tk.Listbox(self.frame_content, height=10, width=40)
         self.listbox_selected_tools.pack(pady=5)
 
         self.frame_buttons = ttk.Frame(self.frame_content)
         self.frame_buttons.pack()
+
 
         self.btn_calculate = ttk.Button(self.frame_buttons, text="Calcular", command=self.calculate_knapsack)
         self.btn_calculate.pack(pady=10)
@@ -200,6 +201,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
             return
         max_value, selected_items = create_greed.knapsack_01(self.capacidade,self.tool_info)
         messagebox.showinfo("Valor máximo:", max_value, "Minerios:", selected_items)
+        
     def run(self):
         self.mainloop()
 
