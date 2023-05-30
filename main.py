@@ -107,9 +107,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.frame_selected_tool = ttk.Frame(self.frame_content)
         self.frame_selected_tool.pack(pady=10)
 
-        #self.lbl_peso_tool = ttk.Label(self.frame_selected_tool, text="Capacidade do caminhão:")
-        #self.lbl_peso_tool.grid(row=0, column=0, padx=5, pady=5, sticky="e")
-
         self.entry_peso_tool = ttk.Entry(self.frame_selected_tool)
         self.entry_peso_tool.grid(row=0, column=1, padx=5, pady=5)
 
