@@ -194,7 +194,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
         if not self.minerios_selecionados:
             messagebox.showerror("Erro", "Selecione pelo menos um minério antes de calcular.")
             return
-        max_value, selected_items = create_greed.knapsack_01(self.capacidade,self.tool_info)
+        max_value, selected_items = create_greed.knapsack_01(self.capacidade, self.minerios_selecionados)
 
         messagebox.showinfo("Valor máximo:", max_value, "Minerios:", selected_items)
         
