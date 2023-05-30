@@ -5,8 +5,6 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import create_greed
 
-#Ahhhhhh
-
 class WelcomeScreen(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -137,7 +135,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.frame_buttons = ttk.Frame(self.frame_content)
         self.frame_buttons.pack()
 
-
         self.btn_calculate = ttk.Button(self.frame_buttons, text="Calcular", command=self.calculate_knapsack)
         self.btn_calculate.pack(pady=10)
 
@@ -174,7 +171,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
             "peso": peso,
             "valor": valor
         }
-
 
         self.minerios_selecionados.append(self.tool_info)
         self.listbox_selected_tools.insert(tk.END, f"{self.tool_info['nome']} - Peso: {peso} - Valor: {valor}")
