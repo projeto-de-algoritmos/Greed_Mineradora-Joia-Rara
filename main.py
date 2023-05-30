@@ -107,6 +107,13 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.frame_selected_tool = ttk.Frame(self.frame_content)
         self.frame_selected_tool.pack(pady=10)
 
+        self.lbl_peso_tool = ttk.Label(self.frame_selected_tool, text="Capacidade do caminhão:")
+        self.lbl_peso_tool.grid(row=0, column=0, padx=5, pady=5, sticky="e")
+
+        self.entry_peso_tool = ttk.Entry(self.frame_selected_tool)
+        self.entry_peso_tool.grid(row=0, column=1, padx=5, pady=5)
+
+
         self.lbl_peso_tool = ttk.Label(self.frame_selected_tool, text="Peso do minério (1-100):")
         self.lbl_peso_tool.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
@@ -150,6 +157,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
                 tool.configure(state="enabled")
 
     def add_tool(self):
+        self.capacidade = int(self.entry_peso_tool.get())
         peso = int(self.entry_peso_tool.get())
         valor = int(self.entry_valor_tool.get())
 
@@ -163,7 +171,6 @@ class MineradoraJoiaRaraApp(tk.Tk):
 
         self.tool_info = {
             "nome": self.selected_tool["nome"],
-            "image_path": self.selected_tool["image_path"],
             "peso": peso,
             "valor": valor
         }
@@ -191,8 +198,8 @@ class MineradoraJoiaRaraApp(tk.Tk):
         if not self.minerios_selecionados:
             messagebox.showerror("Erro", "Selecione pelo menos um minério antes de calcular.")
             return
-
-        messagebox.showinfo("Resultado", create_greed.knapsack_problem(self.tool_info,500) )
+        max_value, selected_items = create_greed.knapsack_01(self.capacidade,self.tool_info)
+        messagebox.showinfo("Valor máximo:", max_value, "Minerios:", selected_items)
     def run(self):
         self.mainloop()
 
