@@ -8,6 +8,8 @@ def knapsack_01(capacity, mineral):
         elif key == 'valor':
             values.append('valor')
 
+#ahhh
+
     n = len(weights)
     dp = [[0 for _ in range(capacity + 1)] for _ in range(n + 1)]
     
