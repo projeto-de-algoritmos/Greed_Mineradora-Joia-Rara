@@ -1,9 +1,9 @@
 import os
 import tkinter as tk
-from tkinter import ttk, Listbox
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
 import create_greed
+
 
 class WelcomeScreen(tk.Tk):
     def __init__(self):
@@ -26,10 +26,12 @@ class WelcomeScreen(tk.Tk):
             self.background_image = Image.open(image_path)
             self.resize_background_image()
 
-        self.lbl_title = ttk.Label(self, text="Bem-vindo à Mineradora Joia Rara", font=("Helvetica", 16))
+        self.lbl_title = ttk.Label(
+            self, text="Bem-vindo à Mineradora Joia Rara", font=("Helvetica", 16))
         self.lbl_title.place(relx=0.5, rely=0.4, anchor="center")
 
-        self.btn_start = ttk.Button(self, text="Iniciar", command=self.open_main_app)
+        self.btn_start = ttk.Button(
+            self, text="Iniciar", command=self.open_main_app)
         self.btn_start.place(relx=0.5, rely=0.6, anchor="center")
 
     def open_main_app(self):
@@ -44,7 +46,8 @@ class WelcomeScreen(tk.Tk):
         if self.background_image is not None:
             window_width = self.winfo_width()
             window_height = self.winfo_height()
-            resized_image = self.background_image.resize((window_width, window_height), Image.LANCZOS)
+            resized_image = self.background_image.resize(
+                (window_width, window_height), Image.LANCZOS)
             bg_image = ImageTk.PhotoImage(resized_image)
 
             if self.lbl_background is not None:
@@ -54,6 +57,7 @@ class WelcomeScreen(tk.Tk):
                 self.lbl_background = ttk.Label(self, image=bg_image)
                 self.lbl_background.image = bg_image
                 self.lbl_background.place(x=0, y=0, relwidth=1, relheight=1)
+
 
 class MineradoraJoiaRaraApp(tk.Tk):
     def __init__(self):
@@ -70,6 +74,8 @@ class MineradoraJoiaRaraApp(tk.Tk):
             {"nome": "Chumbo", "image_path": "assets/chumbo.png"},
         ]
 
+        self.capacidade = 100
+
         self.selected_tool = None
         self.previous_tool = None
         self.minerios_selecionados = []
@@ -80,12 +86,12 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.frame_content = ttk.Frame(self)
         self.frame_content.pack(fill="both", expand=True)
 
-        text = "Precisamos transportar a maior quantidade possível de minerais para outra cidade, " \
-               "mas nosso caminhão tem um peso máximo suportado de 100 unidades de peso. " \
-               "Escolha os minérios que deseja transportar e clique em 'Calcular' para determinar " \
-               "a melhor combinação de minérios que se encaixa no peso disponível."
+        text = "Precisamos transportar a maior quantidade possível de minerais para outra cidade, mas nosso " \
+               "caminhão só suporta 100 quilos. Escolha os minérios que deseja transportar e clique em 'Calcular' " \
+               "para determinar a melhor combinação de minérios que se encaixa no peso disponível."
 
-        self.lbl_description = ttk.Label(self.frame_content, text=text, wraplength=600, anchor="center")
+        self.lbl_description = ttk.Label(
+            self.frame_content, text=text, wraplength=600, anchor="center")
         self.lbl_description.pack(pady=10)
 
         self.frame_tools = ttk.Frame(self.frame_content)
@@ -107,39 +113,44 @@ class MineradoraJoiaRaraApp(tk.Tk):
         self.frame_selected_tool = ttk.Frame(self.frame_content)
         self.frame_selected_tool.pack(pady=10)
 
-        self.entry_peso_tool = ttk.Entry(self.frame_selected_tool)
-        self.entry_peso_tool.grid(row=0, column=1, padx=5, pady=5)
-
-
-        self.lbl_peso_tool = ttk.Label(self.frame_selected_tool, text="Peso do minério (1-100):")
+        self.lbl_peso_tool = ttk.Label(
+            self.frame_selected_tool, text="Peso do minério (1-100):")
         self.lbl_peso_tool.grid(row=0, column=0, padx=5, pady=5, sticky="e")
 
         self.entry_peso_tool = ttk.Entry(self.frame_selected_tool)
         self.entry_peso_tool.grid(row=0, column=1, padx=5, pady=5)
 
-        self.lbl_valor_tool = ttk.Label(self.frame_selected_tool, text="Valor do minério (1-100):")
+        self.lbl_valor_tool = ttk.Label(
+            self.frame_selected_tool, text="Valor do minério (1-100):")
         self.lbl_valor_tool.grid(row=1, column=0, padx=5, pady=5, sticky="e")
 
         self.entry_valor_tool = ttk.Entry(self.frame_selected_tool)
         self.entry_valor_tool.grid(row=1, column=1, padx=5, pady=5)
 
-        self.btn_add_tool = ttk.Button(self.frame_selected_tool, text="Adicionar minério", command=self.add_tool)
+        self.btn_add_tool = ttk.Button(
+            self.frame_selected_tool, text="Adicionar minério", command=self.add_tool)
         self.btn_add_tool.grid(row=2, columnspan=2, padx=5, pady=10)
 
-        self.lbl_selected_tools = ttk.Label(self.frame_content, text="Minérios selecionados:")
+        self.lbl_selected_tools = ttk.Label(
+            self.frame_content, text="Minérios selecionados:")
         self.lbl_selected_tools.pack()
 
-        self.listbox_selected_tools = tk.Listbox(self.frame_content, height=10, width=40)
+        self.listbox_selected_tools = tk.Listbox(
+            self.frame_content, height=10, width=40)
         self.listbox_selected_tools.pack(pady=5)
 
         self.frame_buttons = ttk.Frame(self.frame_content)
         self.frame_buttons.pack()
 
-        self.btn_calculate = ttk.Button(self.frame_buttons, text="Calcular", command=self.calculate_knapsack)
+        self.btn_calculate = ttk.Button(
+            self.frame_buttons, text="Calcular", command=self.calculate_ratio)
         self.btn_calculate.pack(pady=10)
 
-        self.btn_clear = ttk.Button(self.frame_buttons, text="Limpar seleção", command=self.clear_tool_selections)
+        self.btn_clear = ttk.Button(
+            self.frame_buttons, text="Limpar campos", command=self.clear_tool_selections)
         self.btn_clear.pack(pady=10)
+
+        self.update_tool_buttons()
 
     def select_tool(self, minerio):
         self.previous_tool = self.selected_tool
@@ -159,11 +170,13 @@ class MineradoraJoiaRaraApp(tk.Tk):
         valor = int(self.entry_valor_tool.get())
 
         if peso < 1 or peso > 100:
-            messagebox.showerror("Erro", "O peso do minério deve estar entre 1 e 100.")
+            messagebox.showerror(
+                "Erro", "O peso do minério deve estar entre 1 e 100.")
             return
 
         if valor < 1 or valor > 100:
-            messagebox.showerror("Erro", "O valor do minério deve estar entre 1 e 100.")
+            messagebox.showerror(
+                "Erro", "O valor do minério deve estar entre 1 e 100.")
             return
 
         self.tool_info = {
@@ -173,7 +186,8 @@ class MineradoraJoiaRaraApp(tk.Tk):
         }
 
         self.minerios_selecionados.append(self.tool_info)
-        self.listbox_selected_tools.insert(tk.END, f"{self.tool_info['nome']} - Peso: {peso} - Valor: {valor}")
+        self.listbox_selected_tools.insert(
+            tk.END, f"{self.tool_info['nome']} - Peso: {peso} - Valor: {valor}")
 
         self.clear_inputs()
 
@@ -182,6 +196,7 @@ class MineradoraJoiaRaraApp(tk.Tk):
             tool.configure(state="enabled")
         self.listbox_selected_tools.delete(0, tk.END)
         self.update_tool_buttons()
+        self.minerios_selecionados = []
 
     def clear_inputs(self):
         self.selected_tool = None
@@ -192,17 +207,35 @@ class MineradoraJoiaRaraApp(tk.Tk):
 
     def calculate_knapsack(self):
         if not self.minerios_selecionados:
-            messagebox.showerror("Erro", "Selecione pelo menos um minério antes de calcular.")
+            messagebox.showerror(
+                "Erro", "Selecione pelo menos um minério antes de calcular.")
             return
-        max_value, selected_items = create_greed.knapsack_01(self.capacidade, self.minerios_selecionados)
+        max_value, selected_items = create_greed.knapsack_01(
+            self.capacidade, self.minerios_selecionados)
 
-        messagebox.showinfo("Valor máximo:", max_value, "Minerios:", selected_items)
-        
+        messagebox.showinfo(
+            "Resultado", f"Resultado: {max_value}\nMinérios: {selected_items}")
 
-        messagebox.showinfo("Resultado ",f"Valor máximo:{ max_value} \nMinerios: {selected_items}")
+    def calculate_ratio(self):
+        if not self.minerios_selecionados:
+            messagebox.showerror(
+                "Erro", "Selecione pelo menos um minério antes de calcular.")
+            return
+
+        self.minerios_selecionados.sort(key=lambda x: x['valor'] / x['peso'], reverse=True)
+
+        results = []
+        for minerio in self.minerios_selecionados:
+            nome = minerio['nome']
+            peso = minerio['peso']
+            valor = minerio['valor']
+            ratio = valor / peso
+            results.append(f"{nome} - Valor/Peso: {ratio}")
+        messagebox.showinfo("Resultado", "\n".join(results))
 
     def run(self):
         self.mainloop()
+
 
 if __name__ == "__main__":
     app = WelcomeScreen()

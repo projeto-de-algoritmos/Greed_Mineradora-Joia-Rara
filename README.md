@@ -9,18 +9,31 @@
 | 20/2046040  |  Dara Maria Barbosa de Sousa  |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+O projeto é uma interface gráfica e interativa por meio da qual o usuário pode escolher os minérios que deseja transportar, informar o peso e o valor de cada um que for selecionado. Utilizando o Algoritmo da Mochila (Knapsack), o projeto realiza a otimização da seleção dos itens, explorando diferentes combinações e escolhendo aquela que proporciona o maior valor possível dentro das restrições de capacidade da mochila.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+![ScreenShot1](./assets/tela_1.png)
+![ScreenShot1](./assets/tela_2.png)
+![ScreenShot1](./assets/tela_3.png)
 
 ## Instalação 
 **Linguagem**: Python 3.7.9 <br>
-**Framework**: (caso exista)<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+
+Uma vez que o python for instalado, execute o comando abaixo para instalar as dependências:
+
+```cli
+pip install tkinter 
+````
+
+Depois:
+
+```cli
+pip intall Pillow
+```
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+Para rodar o código, use o seguinte comando:
 
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+```cli
+python main.py
+```
