@@ -37,3 +37,6 @@ Para rodar o código, use o seguinte comando:
 ```cli
 python main.py
 ```
+
+## Outros 
+- É crucial que o Python e o Pillow sejam intalados para realizar a execução do projeto.
