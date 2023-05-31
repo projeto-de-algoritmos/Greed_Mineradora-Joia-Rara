@@ -9,7 +9,7 @@
 | 20/2046040  |  Dara Maria Barbosa de Sousa  |
 
 ## Sobre 
-O projeto é uma interface gráfica e interativa por meio da qual o usuário pode escolher os minérios que deseja transportar, informar o peso e o valor de cada um que for selecionado. Utilizando o Algoritmo da Mochila (Knapsack), o projeto realiza a otimização da seleção dos itens, explorando diferentes combinações e escolhendo aquela que proporciona o maior valor possível dentro das restrições de capacidade da mochila.
+O projeto é uma interface gráfica e interativa por meio da qual o usuário pode escolher os minérios que deseja transportar, informar o peso e o valor de cada um que for selecionado. Utilizando o Algoritmo da Mochila (Knapsack), o projeto realiza a otimização da seleção dos itens, explorando diferentes combinações e escolhendo aquela que proporciona o maior valor possível dentro das restrições de capacidade do caminhão.
 
 ## Screenshots
 ![ScreenShot1](./assets/tela_1.png)
