@@ -2,7 +2,7 @@
 
 **Conteúdo da Disciplina**: Algoritmos Ambiciosos <br>
 
-## Aluna
+## Alunas
 |Matrícula | Aluna |
 | -- | -- |
 | 20/0041606  |  Marina Márcia Costa de Souza |
